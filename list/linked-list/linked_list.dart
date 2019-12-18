@@ -100,6 +100,24 @@ class LinkedList<T> {
     }
     return cnt;
   }
+
+  int search(T data) {
+    if (isEmpty()) {
+      return -1;
+    }
+
+    int pos = 0;
+    Node<T> tempNode = head;
+    while (tempNode != null) {
+      if (tempNode.data == data) {
+        return pos;
+      }
+      pos++;
+      tempNode = tempNode.next;
+    }
+
+    return -1;
+  }
 }
 
 main(List<String> args) {
@@ -111,6 +129,7 @@ main(List<String> args) {
     stdout.writeln("2. Display");
     stdout.writeln("3. Delete (pos)");
     stdout.writeln("4. Count");
+    stdout.writeln("5. Search");
     stdout.writeln("-1. Exit");
 
     choice = stdin.readLineSync();
@@ -135,6 +154,11 @@ main(List<String> args) {
         break;
       case '4':
         stdout.writeln("Count is ${linkedList.count()} ");
+        break;
+      case '5':
+        stdout.writeln("Enter the number to be searched:");
+        int search = int.parse(stdin.readLineSync());
+        stdout.writeln("Found at ${linkedList.search(search)}");
         break;
     }
   } while (choice != "-1");
