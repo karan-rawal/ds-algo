@@ -118,6 +118,18 @@ class LinkedList<T> {
 
     return -1;
   }
+
+  void reverse() {
+    Node<T> tempNode = head;
+    Node<T> prevNode = null;
+    while (tempNode != null) {
+      Node<T> nextNode = tempNode.next;
+      tempNode.next = prevNode;
+      prevNode = tempNode;
+      tempNode = nextNode;
+    }
+    head = prevNode;
+  }
 }
 
 main(List<String> args) {
@@ -130,6 +142,7 @@ main(List<String> args) {
     stdout.writeln("3. Delete (pos)");
     stdout.writeln("4. Count");
     stdout.writeln("5. Search");
+    stdout.writeln("6. Reverse");
     stdout.writeln("-1. Exit");
 
     choice = stdin.readLineSync();
@@ -159,6 +172,10 @@ main(List<String> args) {
         stdout.writeln("Enter the number to be searched:");
         int search = int.parse(stdin.readLineSync());
         stdout.writeln("Found at ${linkedList.search(search)}");
+        break;
+      case '6':
+        linkedList.reverse();
+        stdout.writeln("Reversed!");
         break;
     }
   } while (choice != "-1");
