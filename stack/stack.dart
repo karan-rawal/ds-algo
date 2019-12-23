@@ -33,6 +33,11 @@ class Stack<T> {
   bool isEmpty() {
     return _top == -1;
   }
+
+  @override
+  String toString() {
+    return _data.toString() + ", Top: ${_top}";
+  }
 }
 
 main(List<String> args) {
