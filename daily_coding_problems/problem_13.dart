@@ -1,7 +1,7 @@
 /**
  * Hard - Amazon
  * 
- * Given an integer k and a string s, fing the length of the longest
+ * Given an integer k and a string s, find the length of the longest
  * substring that contains at most k distinct characters.
  * 
  * For example, given s = 'abcba' and k = 2, the longest substring with k
@@ -18,8 +18,15 @@ bool isDistinctLessThanK(String str, int k) {
   return map.length <= k;
 }
 
-// naive way - kind of brute force and slow
-// checking for each substring. // TODO maybe find a better way.
+int getMax(int a, int b) {
+  if (a >= b) {
+    return a;
+  } else {
+    return b;
+  }
+}
+
+// one way
 int length(String str, int substringLength, int k) {
   if (substringLength == 0) {
     return 0;
@@ -35,8 +42,24 @@ int length(String str, int substringLength, int k) {
   return length(str, substringLength - 1, k);
 }
 
+// better way O(n2)
+int length2(String str, int k) {
+  int max = 0;
+  for (int i = 0; i < str.length; i++) {
+    Map<String, bool> map = {};
+    for (int j = i; j < str.length; j++) {
+      map[str[j]] = true;
+      if (map.length <= k) {
+        max = getMax(max, (j - i) + 1);
+      }
+    }
+  }
+  return max;
+}
+
 void main(List<String> args) {
   String str = 'abcba';
   int k = 2;
   print(length(str, str.length, k));
+  print(length2(str, k));
 }
